@@ -5,13 +5,13 @@ class NumberGridState extends Equatable {
   final Rule activeRule;
   final Set<int> primes;
   final Set<int> fibs;
-  final int highlightedCount;
+  final Map<Rule, int> ruleCounts;
 
   const NumberGridState({
     required this.activeRule,
     required this.primes,
     required this.fibs,
-    required this.highlightedCount,
+    required this.ruleCounts,
   });
 
   factory NumberGridState.initial() {
@@ -19,37 +19,28 @@ class NumberGridState extends Equatable {
       activeRule: Rule.odd,
       primes: {},
       fibs: {},
-      highlightedCount: 0,
+      ruleCounts: {},
     );
   }
+
+  int get highlightedCount => ruleCounts[activeRule] ?? 0;
 
   NumberGridState copyWith({
     Rule? activeRule,
     Set<int>? primes,
     Set<int>? fibs,
-    int? highlightedCount,
+    Map<Rule, int>? ruleCounts,
   }) {
     return NumberGridState(
       activeRule: activeRule ?? this.activeRule,
       primes: primes ?? this.primes,
       fibs: fibs ?? this.fibs,
-      highlightedCount: highlightedCount ?? this.highlightedCount,
+      ruleCounts: ruleCounts ?? this.ruleCounts,
     );
   }
 
-  bool matchesRule(int n) {
-    switch (activeRule) {
-      case Rule.odd:
-        return n % 2 != 0;
-      case Rule.even:
-        return n % 2 == 0;
-      case Rule.prime:
-        return primes.contains(n);
-      case Rule.fibonacci:
-        return fibs.contains(n);
-    }
-  }
+  bool matchesRule(int n) => activeRule.matches(n, primes, fibs);
 
   @override
-  List<Object?> get props => [activeRule, primes, fibs, highlightedCount];
+  List<Object?> get props => [activeRule, primes, fibs, ruleCounts];
 }

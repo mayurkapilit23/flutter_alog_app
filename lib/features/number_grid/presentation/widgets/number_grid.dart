@@ -41,19 +41,20 @@ class NumberGrid extends StatelessWidget {
 
               return AnimatedBuilder(
                 animation: animation,
-                builder: (context, _) {
+                builder: (context, child) {
                   return Transform.scale(
                     scale: 0.6 + (0.4 * animation.value),
                     child: Opacity(
                       opacity: animation.value,
-                      child: GridCell(
-                        number: number,
-                        isHighlighted: isHighlighted,
-                        highlightColor: state.activeRule.color,
-                      ),
+                      child: child,
                     ),
                   );
                 },
+                child: GridCell(
+                  number: number,
+                  isHighlighted: isHighlighted,
+                  highlightColor: state.activeRule.color,
+                ),
               );
             },
           ),

@@ -12,25 +12,27 @@ class NumberGridBloc extends Bloc<NumberGridEvent, NumberGridState> {
   void _onLoadNumberGrid(LoadNumberGrid event, Emitter<NumberGridState> emit) {
     final primes = _computePrimes(100);
     final fibs = _computeFibonacci(100);
-    final initialRule = state.activeRule;
-    final highlightedCount = _calculateHighlightedCount(initialRule, primes, fibs);
+    
+    // Pre-calculate counts for all rules once
+    final ruleCounts = <Rule, int>{};
+    for (final rule in Rule.values) {
+      int count = 0;
+      for (int i = 1; i <= 100; i++) {
+        if (rule.matches(i, primes, fibs)) count++;
+      }
+      ruleCounts[rule] = count;
+    }
 
     emit(NumberGridState(
-      activeRule: initialRule,
+      activeRule: Rule.odd,
       primes: primes,
       fibs: fibs,
-      highlightedCount: highlightedCount,
+      ruleCounts: ruleCounts,
     ));
   }
 
   void _onChangeRule(ChangeRule event, Emitter<NumberGridState> emit) {
-    final rule = event.rule;
-    final highlightedCount = _calculateHighlightedCount(rule, state.primes, state.fibs);
-
-    emit(state.copyWith(
-      activeRule: rule,
-      highlightedCount: highlightedCount,
-    ));
+    emit(state.copyWith(activeRule: event.rule));
   }
 
   Set<int> _computePrimes(int max) {
@@ -59,28 +61,5 @@ class NumberGridBloc extends Bloc<NumberGridEvent, NumberGridState> {
       b = temp;
     }
     return fibs;
-  }
-
-  int _calculateHighlightedCount(Rule rule, Set<int> primes, Set<int> fibs) {
-    int count = 0;
-    for (int i = 1; i <= 100; i++) {
-      bool matches = false;
-      switch (rule) {
-        case Rule.odd:
-          matches = i % 2 != 0;
-          break;
-        case Rule.even:
-          matches = i % 2 == 0;
-          break;
-        case Rule.prime:
-          matches = primes.contains(i);
-          break;
-        case Rule.fibonacci:
-          matches = fibs.contains(i);
-          break;
-      }
-      if (matches) count++;
-    }
-    return count;
   }
 }

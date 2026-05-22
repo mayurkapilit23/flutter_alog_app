@@ -25,49 +25,53 @@ class RuleSelector extends StatelessWidget {
             itemBuilder: (context, i) {
               final rule = Rule.values[i];
               final isActive = rule == activeRule;
-              return GestureDetector(
-                onTap: () {
-                  context.read<NumberGridBloc>().add(ChangeRule(rule));
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeOut,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? rule.color.withOpacity(0.15)
-                        : AppColors.borderMuted,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
+              return Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    context.read<NumberGridBloc>().add(ChangeRule(rule));
+                  },
+                  borderRadius: BorderRadius.circular(8),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeOut,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    decoration: BoxDecoration(
                       color: isActive
-                          ? rule.color.withOpacity(0.7)
-                          : AppColors.borderHighlight,
-                      width: isActive ? 1.5 : 0.5,
+                          ? rule.color.withOpacity(0.15)
+                          : AppColors.borderMuted,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: isActive
+                            ? rule.color.withOpacity(0.7)
+                            : AppColors.borderHighlight,
+                        width: isActive ? 1.5 : 0.5,
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    children: [
-                      if (isActive) ...[
-                        Container(
-                          width: 6,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: rule.color,
+                    child: Row(
+                      children: [
+                        if (isActive) ...[
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: rule.color,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                        ],
+                        Text(
+                          rule.label,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+                            color: isActive ? rule.color : AppColors.textTertiary,
+                            letterSpacing: 0.3,
                           ),
                         ),
-                        const SizedBox(width: 6),
                       ],
-                      Text(
-                        rule.label,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                          color: isActive ? rule.color : AppColors.textTertiary,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               );

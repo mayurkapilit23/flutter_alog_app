@@ -11,4 +11,13 @@ enum Rule {
   final String label;
   final String hint;
   final Color color;
+
+  bool matches(int n, Set<int> primes, Set<int> fibs) {
+    return switch (this) {
+      Rule.odd => n % 2 != 0,
+      Rule.even => n % 2 == 0,
+      Rule.prime => primes.contains(n),
+      Rule.fibonacci => fibs.contains(n),
+    };
+  }
 }
