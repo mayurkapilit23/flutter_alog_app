@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../main.dart' show Rule;
+import '../models/rule.dart';
 
 class NumberGridState extends Equatable {
   final Rule activeRule;

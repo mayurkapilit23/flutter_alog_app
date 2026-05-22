@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../main.dart' show Rule;
+import '../models/rule.dart';
 import 'number_grid_event.dart';
 import 'number_grid_state.dart';
 
