@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/number_grid_bloc.dart';
-import '../../bloc/number_grid_state.dart';
+import '../../bloc/algorithm_bloc.dart';
+import '../../bloc/algorithm_state.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'stat_chip.dart';
 
@@ -10,10 +10,10 @@ class StatsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NumberGridBloc, NumberGridState>(
+    return BlocBuilder<AlgorithmBloc, AlgorithmState>(
       buildWhen: (previous, current) =>
           previous.activeRule != current.activeRule ||
-          previous.highlightedCount != current.highlightedCount,
+          previous.ruleCounts != current.ruleCounts,
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),

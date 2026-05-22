@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 import '../models/rule.dart';
 
-class NumberGridState extends Equatable {
+class AlgorithmState extends Equatable {
   final Rule activeRule;
   final Set<int> primes;
   final Set<int> fibs;
   final Map<Rule, int> ruleCounts;
 
-  const NumberGridState({
+  const AlgorithmState({
     required this.activeRule,
     required this.primes,
     required this.fibs,
     required this.ruleCounts,
   });
 
-  factory NumberGridState.initial() {
-    return const NumberGridState(
+  factory AlgorithmState.initial() {
+    return const AlgorithmState(
       activeRule: Rule.odd,
       primes: {},
       fibs: {},
@@ -25,13 +25,13 @@ class NumberGridState extends Equatable {
 
   int get highlightedCount => ruleCounts[activeRule] ?? 0;
 
-  NumberGridState copyWith({
+  AlgorithmState copyWith({
     Rule? activeRule,
     Set<int>? primes,
     Set<int>? fibs,
     Map<Rule, int>? ruleCounts,
   }) {
-    return NumberGridState(
+    return AlgorithmState(
       activeRule: activeRule ?? this.activeRule,
       primes: primes ?? this.primes,
       fibs: fibs ?? this.fibs,

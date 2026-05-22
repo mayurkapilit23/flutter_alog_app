@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/algorithm_bloc.dart';
+import '../../bloc/algorithm_state.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../bloc/number_grid_bloc.dart';
-import '../../bloc/number_grid_state.dart';
+
 class NumberGridHeader extends StatelessWidget {
   const NumberGridHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NumberGridBloc, NumberGridState>(
+    return BlocBuilder<AlgorithmBloc, AlgorithmState>(
       buildWhen: (previous, current) => previous.activeRule != current.activeRule,
       builder: (context, state) {
         final activeRule = state.activeRule;

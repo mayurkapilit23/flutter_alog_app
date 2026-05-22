@@ -1,19 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/rule.dart';
-import 'number_grid_event.dart';
-import 'number_grid_state.dart';
+import 'algorithm_event.dart';
+import 'algorithm_state.dart';
 
-class NumberGridBloc extends Bloc<NumberGridEvent, NumberGridState> {
-  NumberGridBloc() : super(NumberGridState.initial()) {
-    on<LoadNumberGrid>(_onLoadNumberGrid);
+class AlgorithmBloc extends Bloc<AlgorithmEvent, AlgorithmState> {
+  AlgorithmBloc() : super(AlgorithmState.initial()) {
+    on<LoadAlgorithm>(_onLoadAlgorithm);
     on<ChangeRule>(_onChangeRule);
   }
 
-  void _onLoadNumberGrid(LoadNumberGrid event, Emitter<NumberGridState> emit) {
+  void _onLoadAlgorithm(LoadAlgorithm event, Emitter<AlgorithmState> emit) {
     final primes = _computePrimes(100);
     final fibs = _computeFibonacci(100);
     
-    // Pre-calculate counts for all rules once
     final ruleCounts = <Rule, int>{};
     for (final rule in Rule.values) {
       int count = 0;
@@ -23,7 +22,7 @@ class NumberGridBloc extends Bloc<NumberGridEvent, NumberGridState> {
       ruleCounts[rule] = count;
     }
 
-    emit(NumberGridState(
+    emit(AlgorithmState(
       activeRule: Rule.odd,
       primes: primes,
       fibs: fibs,
@@ -31,7 +30,7 @@ class NumberGridBloc extends Bloc<NumberGridEvent, NumberGridState> {
     ));
   }
 
-  void _onChangeRule(ChangeRule event, Emitter<NumberGridState> emit) {
+  void _onChangeRule(ChangeRule event, Emitter<AlgorithmState> emit) {
     emit(state.copyWith(activeRule: event.rule));
   }
 

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/number_grid/bloc/number_grid_bloc.dart';
-import 'features/number_grid/bloc/number_grid_event.dart';
-import 'features/number_grid/presentation/screens/number_grid_screen.dart';
+import 'features/algorithm_task/bloc/algorithm_bloc.dart';
+import 'features/algorithm_task/bloc/algorithm_event.dart';
+import 'features/algorithm_task/presentation/screens/algorithm_screen.dart';
 import 'core/constants/app_colors.dart';
 
 void main() {
-  runApp(const NumberGridApp());
+  runApp(const AlgorithmApp());
 }
 
-class NumberGridApp extends StatelessWidget {
-  const NumberGridApp({super.key});
+class AlgorithmApp extends StatelessWidget {
+  const AlgorithmApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Number Grid',
+      title: 'Algorithm Task',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -26,8 +26,8 @@ class NumberGridApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (context) => NumberGridBloc()..add(const LoadNumberGrid()),
-        child: const NumberGridScreen(),
+        create: (context) => AlgorithmBloc()..add(const LoadAlgorithm()),
+        child: const AlgorithmScreen(),
       ),
     );
   }

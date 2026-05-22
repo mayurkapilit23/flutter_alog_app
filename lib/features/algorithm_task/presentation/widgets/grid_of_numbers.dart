@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/number_grid_bloc.dart';
-import '../../bloc/number_grid_state.dart';
+import '../../bloc/algorithm_bloc.dart';
+import '../../bloc/algorithm_state.dart';
 import 'grid_cell.dart';
 
-class NumberGrid extends StatelessWidget {
+class GridOfNumbers extends StatelessWidget {
   final AnimationController animationController;
 
-  const NumberGrid({
+  const GridOfNumbers({
     super.key,
     required this.animationController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NumberGridBloc, NumberGridState>(
+    return BlocBuilder<AlgorithmBloc, AlgorithmState>(
       buildWhen: (previous, current) => previous.activeRule != current.activeRule,
       builder: (context, state) {
         return Padding(

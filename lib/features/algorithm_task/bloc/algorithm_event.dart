@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 import '../models/rule.dart';
 
-abstract class NumberGridEvent extends Equatable {
-  const NumberGridEvent();
+abstract class AlgorithmEvent extends Equatable {
+  const AlgorithmEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class LoadNumberGrid extends NumberGridEvent {
-  const LoadNumberGrid();
+class LoadAlgorithm extends AlgorithmEvent {
+  const LoadAlgorithm();
 }
 
-class ChangeRule extends NumberGridEvent {
+class ChangeRule extends AlgorithmEvent {
   final Rule rule;
 
   const ChangeRule(this.rule);
